@@ -1,0 +1,17 @@
+rice-colors is distributed under GPL-3.0-or-later (see LICENSE). It ports code
+that is LGPL-2.0-or-later; the combined work is distributed under the GPL as
+the LGPL allows.
+
+Ported from KDE Frameworks (LGPL-2.0-or-later):
+  kguiaddons  src/colors/kcolorspaces.cpp  (src/hcy.c)
+      Copyright 2007 Matthew Woehlke, 2007 Olaf Schmidt
+  kguiaddons  src/colors/kcolorutils.cpp   (src/utils.c)
+      Copyright 2007 Matthew Woehlke, 2007 Thomas Zander, 2007 Zack Rusin
+  kcolorscheme src/kcolorscheme.cpp        (src/shade.c, effects.c, roles.c)
+      Copyright Matthew Woehlke (and Olaf Schmidt in shade.c and effects.c); see the
+      SPDX header of each ported file.
+
+Ported from GTK+ 2.24 (LGPL-2.0-or-later), commit 6863194:
+  gtk/gtkstyle.c  _gtk_style_shade, rgb_to_hls, hls_to_rgb  (src/hls.c)
+      Copyright 1995-1997 Peter Mattis, Spencer Kimball and Josh MacDonald
+  The maintainer tool oracle/gtk2-shade.c holds a verbatim copy of that code.

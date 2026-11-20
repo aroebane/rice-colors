@@ -1,0 +1,2 @@
+option('tests', type: 'boolean', value: true, description: 'Build and register the tests')
+option('oracle', type: 'feature', value: 'disabled', description: 'Maintainer tool that regenerates tests/golden (needs Qt 6 and KF6)')
