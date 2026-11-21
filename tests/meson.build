@@ -12,7 +12,8 @@ foreach t : [
   ['roles', 'roles', ['roles.tsv']],
 ]
   exe = executable('test-' + t[0], 'test-' + t[0] + '.c',
-    include_directories: inc, c_args: unit_args,
+    include_directories: inc,
+    c_args: unit_args + ['-DEXPECT_VERSION="' + meson.project_version() + '"'],
     link_with: [harness, unit_lib[t[1]]], dependencies: [m_dep])
   args = []
   foreach g : t[2]

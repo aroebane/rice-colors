@@ -10,11 +10,11 @@ BEAR ?= bear
 SHELLCHECK ?= shellcheck
 
 SOURCES := $(sort $(wildcard src/*.c include/rice-colors/*.h tests/*.c tests/*.h tests/*.cpp oracle/*.c oracle/*.cpp oracle/*.h))
-SCRIPTS := $(sort $(wildcard tests/*.sh))
+SCRIPTS := $(sort $(wildcard tests/*.sh scripts/*))
 VERSION := $(shell cat VERSION)
 
 .DEFAULT_GOAL := help
-.PHONY: help oracle build test check install uninstall fmt format-check lint shellcheck compdb clean
+.PHONY: help oracle build test check install uninstall fmt format-check lint shellcheck compdb clean release-plan release-patch release-minor release-major
 
 help:
 	@printf '%s\n' \
@@ -30,6 +30,8 @@ help:
 		'  shellcheck    Lint the test scripts' \
 		'  compdb        Write compile_commands.json with bear (for clangd and clang-tidy)' \
 		'  oracle        Regenerate tests/golden from an installed reference (maintainers only)' \
+		'  release-plan  Show the next patch release without changing anything' \
+		'  release-patch|minor|major  Check, bump VERSION, sign the tag, push (see scripts/release)' \
 		'  clean         Remove $(BUILD_DIR)/ and compile_commands.json' \
 		'Variables: PREFIX BUILD_DIR DESTDIR'
 
@@ -70,6 +72,13 @@ oracle: $(BUILD_DIR)/build.ninja
 	$(MESON) compile -C "$(BUILD_DIR)-oracle"
 
 check: format-check test lint shellcheck
+
+# Cuts the next release; see scripts/release --help. Needs the release key: export GNUPGHOME first.
+release-plan:
+	@bash scripts/release patch --plan $(RELEASE_ARGS)
+
+release-patch release-minor release-major: release-%:
+	@bash scripts/release $* $(RELEASE_ARGS)
 
 clean:
 	rm -rf -- "$(BUILD_DIR)" "$(BUILD_DIR)-oracle" compile_commands.json

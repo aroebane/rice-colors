@@ -75,7 +75,7 @@ static void test_normalize_wrap(void)
 
 static void test_version(void)
 {
-    CHECK(strcmp(ricecol_version(), "0.1.0") == 0);
+    CHECK(strcmp(ricecol_version(), EXPECT_VERSION) == 0);
 }
 
 int main(void)
